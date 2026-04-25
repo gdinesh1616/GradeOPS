@@ -1,0 +1,17 @@
+.examContent{
+    display:flex;
+    justify-content: space-between;
+}
+.detailBtns{
+    padding:2rem;
+}
+.detailBtns button{
+    margin-left: 2rem;
+}
+.examContent p{
+    font-size: 32px;
+    font-weight: 400;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:rgb(0, 29, 61);
+    margin-left:1rem
+}

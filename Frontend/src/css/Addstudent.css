@@ -1,0 +1,31 @@
+
+.addStudent{
+    width:25%;
+    height:350px;
+    box-shadow: 2px 4px 4px 2px rgb(74, 74, 74,0.5);
+    display:flex;
+    margin:auto;
+    border-radius: 1rem;
+    align-items:baseline;
+    margin-top: 10%;
+    justify-content: center;
+    padding-top: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 1rem 0 0.5rem 0.5rem;
+}
+.redirectbtn{
+    width:1.5rem;
+    border-radius:100%;
+}
+.formheader{
+    display: flex;
+    justify-content: space-between;
+}
+.formheader h2{
+    display: inline;
+}

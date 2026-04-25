@@ -1,0 +1,12 @@
+.viewStudent{
+    padding:1rem;
+}
+.viewStudentheader{
+    padding:2rem;
+}
+.viewStudentheader h2{
+    font-size: 30px;
+}
+.viewStudentheader Button{
+    margin-right: 1rem;
+}
