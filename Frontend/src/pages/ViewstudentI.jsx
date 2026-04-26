@@ -33,7 +33,7 @@ const evaluateScripts = async ()=>{
       const scripts = await axios.get(`http://localhost:5000/${examId}/scripts`);
       for(let i=0;i<scripts.data.length;i++){
         let scriptURL = scripts.data[i].answerScriptURL
-        const response = await axios.post(`http://localhost:5000/${examId}/${scripts.data[i]._id}/toText`,{scriptURL})
+        const response = await axios.post(`http://localhost:5000/${examId}/${scripts.data[i]._id}/evaluate`,{scriptURL})
       }
 
       //evaluation code

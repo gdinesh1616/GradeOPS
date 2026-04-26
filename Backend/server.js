@@ -58,15 +58,23 @@ try {
   }
 });
 
-app.post("/:examId/:studentId/toText",async(req,res)=>{
-  const{examId,studentId} = req.params;
-  const url = req.body.scriptURL
-  console.log(url)
-  const response = await axios.post( "http://127.0.0.1:8000/extract-text",{ url })
-  console.log(response.data.text);
-   const saveText = await Student.findByIdAndUpdate(studentId,{answerText:response.data.text});
-  res.send(saveText);
+app.post("/api/:examId/postRubrics",async(req,res)=>{
+  const {questions } = req.body;
+  const {examId} = req.params;
+  const result = await Course.findByIdAndUpdate(examId,{questions});
+})
 
+app.post("/:examId/:studentId/evaluate",async(req,res)=>{
+  const{examId,studentId} = req.params;
+  const url = req.body.scriptURL;
+  const result = await Course.findById(examId);
+  const questions = result.questions;
+  console.log(url,questions);
+  const response = await axios.post( "http://127.0.0.1:8000/evaluate",{ pdf_url: url,rubric: questions })
+  console.log(response);
+  // console.log(response.data.text);
+  //  const saveText = await Student.findByIdAndUpdate(studentId,{answerText:response.data.text});
+  // res.send(saveText);
 })
 
 app.get("/:examId/scripts",async (req,res)=>{

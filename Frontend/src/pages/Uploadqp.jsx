@@ -1,62 +1,106 @@
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import '../css/Uploadqpform.css'
-import { useNavigate } from "react-router-dom";
-import { BrowserRouter,Routes,Route } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import React, { useState } from 'react';
+import '../css/Uploadqpform.css';
 import axios from "axios";
+import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-export default function Uploadqp(){
-    const navigate = useNavigate();
-    const {examId} = useParams();
-    console.log(examId);
+const QuestionForm = () => {
+  const navigate = useNavigate();
+  const {examId} = useParams();
+  
+  const [questions, setQuestions] = useState([
+    { questionText: '', maxMarks: '', rubrics: '' }
+  ]);
 
-    const [qp, setQp] = useState(null);
+  const handleInputChange = (index, event) => {
+    const values = [...questions];
+    values[index][event.target.name] = event.target.value;
+    setQuestions(values);
+  };
 
-  const handleQp = (e) => {
-     console.log(e.target.files[0]);
-    setQp(e.target.files[0]);
+  const addQuestion = () => {
+    setQuestions([...questions, { questionText: '', maxMarks: '', rubrics: '' }]);
+  };
+
+  const removeQuestion = (index) => {
+    const values = [...questions];
+    values.splice(index, 1);
+    setQuestions(values);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const data = new FormData();
-    data.append("qp", qp);
-
-    try {
-      const res = await axios.post(
-        `http://localhost:5000/api/exam/${examId}/qpUpload`, // replace with examId
-        data
-      );
-
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
     
-  }
+    const postRubrics = await axios.post(`http://localhost:5000/api/${examId}/postRubrics`,{questions})
+    navigate(`/Instructor/exam/${examId}`)
+  };
 
-    return(
-    <div className='uploadqpform'>
-        <form onSubmit={handleSubmit}>
-            <div className='field'>
-                <h2>Upload</h2>
+  return (
+    <div className="container">
+      <form className="form-card" onSubmit={handleSubmit}>
+        <h2 className="form-title">Questionnaire Builder</h2>
+        
+        {questions.map((q, index) => (
+          <div key={index} className="question-section">
+            <div className="section-header">
+              <h3>Question {index + 1}</h3>
+              {questions.length > 1 && (
+                <button type="button" className="remove-btn" onClick={() => removeQuestion(index)}>
+                  Remove
+                </button>
+              )}
             </div>
-            <div className='field'>
-                <label htmlFor='pdfqp'>Question Paper</label>
-                <input type="file" id="pdfqp" name="qp" onChange={handleQp}></input>
+
+            <div className="input-group">
+              <label>Question Text</label>
+              <input
+                type="text"
+                name="questionText"
+                placeholder="e.g. Define Kirchhoff's Law"
+                value={q.questionText}
+                onChange={(e) => handleInputChange(index, e)}
+                required
+              />
             </div>
-            <div className='field'>
-                {/* <label htmlFor="rubrics">Answer</label> */}
-            {/* <input type="file" id="rubrics" name="ap"></input> */}
+
+            <div className="row">
+              <div className="input-group">
+                <label>Max Marks</label>
+                <input
+                  type="number"
+                  name="maxMarks"
+                  placeholder="10"
+                  value={q.maxMarks}
+                  onChange={(e) => handleInputChange(index, e)}
+                  required
+                />
+              </div>
+              <div className="input-group">
+                <label>Rubrics</label>
+                <textarea
+                  name="rubrics"
+                  placeholder="Enter grading criteria..."
+                  value={q.rubrics}
+                  onChange={(e) => handleInputChange(index, e)}
+                  required
+                />
+              </div>
             </div>
-            <div className="field">
-                <Button variant="contained" type="submit">Submit</Button>
-            </div>
-        </form>
+          </div>
+        ))}
+
+        <div className="action-buttons">
+          <button type="button" className="add-btn" onClick={addQuestion}>
+            + Add Question
+          </button>
+          <button type="submit" className="submit-btn">
+            Submit Paper
+          </button>
+        </div>
+      </form>
     </div>
-    )
-}
+  );
+};
+
+export default QuestionForm;
