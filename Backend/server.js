@@ -70,10 +70,19 @@ app.post("/:examId/:studentId/evaluate",async(req,res)=>{
   const result = await Course.findById(examId);
   const questions = result.questions;
   console.log(url,questions);
-  const response = await axios.post( "http://127.0.0.1:8000/evaluate",{ pdf_url: url,rubric: questions })
-  console.log(response);
-  // console.log(response.data.text);
-  //  const saveText = await Student.findByIdAndUpdate(studentId,{answerText:response.data.text});
+  const formattedQuestions = {};
+
+questions.forEach((q, index) => {
+  formattedQuestions[`Q${index + 1}`] = {
+    questionText: q.questionText,
+    maxMarks: q.maxMarks,
+    rubrics: q.rubrics
+  };
+});
+console.log(formattedQuestions)
+  const response = await axios.post( "http://127.0.0.1:8000/evaluate",{ pdf_url: url,rubric: formattedQuestions })
+  console.log(response.data);
+   const saveText = await Student.findByIdAndUpdate(studentId,{answerText:response.data.answer_text,results:response.data.results,remarks:response.data.remarks,totalMarksByLLM:response.data.total_marks,status:"Evaluated By LLM"});
   // res.send(saveText);
 })
 

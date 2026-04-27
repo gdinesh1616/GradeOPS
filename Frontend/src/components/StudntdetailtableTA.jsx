@@ -44,7 +44,7 @@ const handleClick = ()=>{
         {data.map((student, index) => (
           <tr key={index}>
             <td>{student.rollNo}</td>
-            <td>{student.marksByLLM}</td>
+            <td>{student.totalMarksByLLM}</td>
             <td>{student.marksByTA}</td>
             <td>{student.status}</td>
             <td>{student.remarks}</td>

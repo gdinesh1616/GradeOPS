@@ -36,7 +36,7 @@ export default function StudentdetailtableI(prop){
           <tr key={index}>
             <td>{student.rollNo}</td>
             <td><a href={student.answerScriptURL}>View PDF</a></td>
-            <td>{student.marksByLLM}</td>
+            <td>{student.totalMarksByLLM}</td>
             <td>{student.marksByTA}</td>
             <td>{student.status}</td>
           </tr>

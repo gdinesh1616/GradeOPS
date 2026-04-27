@@ -4,15 +4,19 @@ from io import BytesIO
 from pdf2image import convert_from_bytes
 import numpy as np
 import cv2
+import sys
+import os
 
+sys.path.append(
+    os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "../Tensorflow/HTRPipeline")
+    )
+)
 from htr_pipeline import read_page, DetectorConfig, LineClusteringConfig
 
 
-# //state:Evalstate
-
-def pdfToText_node():
-    pdf_url = "https://res.cloudinary.com/dzusarwvk/raw/upload/v1776932639/grawoyu2f0nnibnrddci.pdf"
-
+def pdfToText_node(state):
+    pdf_url = state["pdf_url"]
     response = requests.get(pdf_url)
 
     if response.status_code != 200:
@@ -40,5 +44,8 @@ def pdfToText_node():
             all_text += line_text + "\n"
 
     print(all_text)
+    return{
+        "answer_text":all_text
+    }
 
-pdfToText_node()
+

@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 
+const resultSchema = new mongoose.Schema({
+  marks: Number,
+  reason: String
+}, { _id: false });
+
 const studentSchema = new mongoose.Schema({
     rollNo: Number,
     answerScriptURL:String,
@@ -23,8 +28,13 @@ const studentSchema = new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         refer:'Course',
     },
-
-
+    results: {
+        type: Map,
+        of: resultSchema
+    },
+    totalMarksByLLM:Number,
+    totalMarksByTA:Number,
+    remarks:String,
 })
 const Student = mongoose.model("Student", studentSchema);
 
