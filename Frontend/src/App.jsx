@@ -12,6 +12,7 @@ import Uploadqp from './pages/Uploadqp';
 import ViewstudentTA from './pages/ViewstudentTA';
 import Approvepaper from './pages/Approvepaper';
 import MarksTable from './components/Marksdetails';
+import QuestionFormTA from './pages/ViewrubricsTA';
 import './css/index.css'
 
 const theme = createTheme();
@@ -31,6 +32,7 @@ function App() {
           <Route path="/Instructor/:examId/addStudentForm" element={<Addstudent/>}></Route>
           <Route path="/Instructor/:examId/Uploadqp" element={<Uploadqp/>}></Route>
           <Route path="/TA/:examId/student/:studentId/approve" element={<Approvepaper/>}></Route>
+          <Route path="/TA/:examId/viewRubrics" element={<QuestionFormTA/>}></Route>
         </Routes>
      
       </BrowserRouter>

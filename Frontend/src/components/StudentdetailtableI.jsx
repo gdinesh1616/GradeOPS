@@ -39,6 +39,7 @@ export default function StudentdetailtableI(prop){
             <td>{student.totalMarksByLLM}</td>
             <td>{student.totalMarksByTA}</td>
             <td>{student.status}</td>
+            <td>{student.remarks}</td>
           </tr>
         ))}
       </tbody>

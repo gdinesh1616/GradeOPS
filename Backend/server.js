@@ -82,7 +82,7 @@ console.log(formattedQuestions)
   const response = await axios.post( "http://127.0.0.1:8000/evaluate",{ pdf_url: url,rubric: formattedQuestions })
   console.log(response.data);
    const saveText = await Student.findByIdAndUpdate(studentId,{answerText:response.data.answer_text,results:response.data.results,remarks:response.data.remarks,totalMarksByLLM:response.data.total_marks,status:"Evaluated By LLM"});
-  // res.send(saveText);
+  res.send(saveText);
 })
 
 app.get("/:examId/scripts",async (req,res)=>{
@@ -119,6 +119,13 @@ app.post("/api/exam/:examId/qpUpload",upload.single("qp"),async(req,res)=>{
   } 
 
 })
+
+app.get("/api/:examId/getQuestions",async(req,res)=>{
+  const examId = req.params.examId;
+  const response = await Course.findById(examId);
+  res.send(response);
+})
+
 app.get("/api/:examId/student/:studentId/getDetails",async(req,res)=>{
     const studentId = req.params.studentId;
     const result = await Student.findById(studentId);

@@ -39,7 +39,7 @@ export default function StudentdetailtableTA(prop){
     </thead>
 
       <tbody>
-        {data.map((student, index) => (
+        {data.filter(student => student.status !== "Not Evaluated").map((student, index) => (
           <tr key={index}>
             <td>{student.rollNo}</td>
             <td>{student.totalMarksByLLM}</td>
@@ -48,7 +48,7 @@ export default function StudentdetailtableTA(prop){
             <td>{student.remarks}</td>
             <td><Button variant="contained" onClick={ ()=>{
       navigate(`/TA/${prop.examId}/student/${student._id}/approve`)
-}} studentId={student._id}>Approve/Edit</Button></td>
+}} studentId={student._id}>{student.status === "Approved by TA"? "Approved" : "Approve/Edit"}</Button></td>
           </tr>
         ))}
       </tbody>

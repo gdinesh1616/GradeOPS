@@ -13,7 +13,8 @@ import '../css/ViewstudentI.css'
 export default function ViewstudentI(){
 const navigate = useNavigate();
 const { examId } = useParams();
-const [coursename, setCoursename] = useState("hi");
+const [loading,SetLoading] = useState(false);
+const [coursename, setCoursename] = useState("XXXX");
 useEffect(()=>{
      axios.get(`http://localhost:5000/api/exam/${examId}`)
       .then(res => setCoursename(res.data[0].courseName))
@@ -29,13 +30,23 @@ const openformforqp = ()=>{
 }
 
 const evaluateScripts = async ()=>{
+  SetLoading(true);
+  try{
       //to text
+      console.log("started");
       const scripts = await axios.get(`http://localhost:5000/${examId}/scripts`);
       for(let i=0;i<scripts.data.length;i++){
         let scriptURL = scripts.data[i].answerScriptURL
         const response = await axios.post(`http://localhost:5000/${examId}/${scripts.data[i]._id}/evaluate`,{scriptURL})
       }
-
+      console.log("ended");
+    }catch(e){
+      console.log(e);
+    }finally{
+      console.log("status false");
+      SetLoading(false);
+    }
+      
       //evaluation code
 
 
@@ -59,7 +70,7 @@ return(
               Upload Student Scripts
             </Button>
         <Button className="uploadqpbtn" variant="contained" onClick={openformforqp}>Upload Question Paper and rubrics</Button>
-        <Button className="evaluatebtn" variant="contained" onClick={evaluateScripts}>Evaluate</Button>
+      <Button className="evaluatebtn" style={{backgroundColor : loading?"red":"blue"}} variant="contained" onClick={evaluateScripts}>{loading?"Evaluating":"Evaluate"}{loading?<span className="spinner"></span>:""}</Button>
     </div>
     <div className="viewStudent">
         <StudentdetailtableI examId={examId}></StudentdetailtableI>

@@ -62,8 +62,7 @@ export default function Addstudent(){
                 <div className='formheader'>
                     <h2>Add student</h2>
                     <a href='/'><i class="fa-regular fa-circle-xmark"></i></a>
-                </div>
-                
+                </div> 
             </div>
             <div className='field'>
                 <label htmlFor='outlined-search'>Roll number of the student</label>
@@ -76,7 +75,6 @@ export default function Addstudent(){
             <div className="field">
                 <Button variant="contained" onClick={handleSubmit}>Submit</Button>
             </div>
-            
         </form>
     </div>
 
