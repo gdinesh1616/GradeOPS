@@ -7,40 +7,55 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 export default function TAapproval(){
     const {examId,studentId} = useParams();
-    const[data,setData] = useState({});
-    const [marks,setMarks] = useState(data.totalMarksByLLM);
-    const [isEditing,setIsEditing] = useState(true);
-    const [index,setIndex] = useState(0);
+    const [data,setData] = useState({});
     const questions = Object.values(data?.results || {});
-    const [editedResults,setEditedResults] = useState(Object.values(data?.results || {}))
+    const [results,setResults] = useState({})
+    const [currAns,setCurrAns] = useState(1);
+    const key = `Q${currAns}`;
+    const navigate = useNavigate();
+    console.log(studentId);
+    const handleMarksChange = (e)=>{
 
-    const handleMarksChange = (value)=>{
-        const updated = {...editedResults};
-        updated[index].marks = value;
-        console.log(updated);
-        setEditedResults(updated);
-    }
+    setResults({
+        ...results,
 
+        [key]: {
+            ...results[key],
+
+            marks: e.target.value
+        }
+    })
+}
+    
+    
     useEffect(()=>{
         const fetchdata = async()=>{
         const response = await axios.get(`http://localhost:5000/api/${examId}/student/${studentId}/getDetails`)
-        console.log(response.data);
-        setData(response.data)
-        
-
+        setData(response.data);
+        setResults(response.data.results);
+    
     }
     fetchdata();
-
     },[])
-    const handlePreviousClick = ()=>{}
-    const handleNextClick = ()=>{}
+    const handlePreviousClick = ()=>{
+        setCurrAns(currAns-1);
+    }
+    const handleNextClick = ()=>{
+        setCurrAns(currAns+1);
+    }
     const handleEditClick = ()=>{
         setIsEditing(!isEditing);
     }
-    const handleApproveClick = ()=>{
-        
+    const handleApproveClick = async ()=>{
+          try {
+            await axios.put(`http://localhost:5000/api/${examId}/student/${studentId}/updateResults`,results);
+            console.log("saved successfully");
+          }catch(e){
+            console.log(e);
+          }
+          navigate(`/TA/exam/${examId}`);
     }
-
+   
     return(
         <>
            <div className="taApproval">
@@ -51,14 +66,13 @@ export default function TAapproval(){
             <hr></hr>
 
             
-                <p>Question:{index+1}</p>
-                <p>Marks:<input className="editMarks" disabled={isEditing} value={editedResults[index]?.marks} onChange={handleMarksChange}></input>/{5}</p>
-                <h4>Reason:{questions[index]?.reason}</h4>
+                <p>Question:{currAns}</p>
+                <p>Marks:<input className="editMarks" value={results[key]?.marks} onChange={handleMarksChange}></input>/{5}</p>
+                <h4>Reason:{questions[currAns-1]?.reason}</h4>
             
-            <Button variant="contained" onClick={handleEditClick}>Edit</Button>
-            <Button variant="contained" onClick={handlePreviousClick}>Previous</Button>
-            <Button variant="contained" onClick={handleNextClick}>Approve</Button>
-            <Button variant="contained" onClick={handleApproveClick}>Next</Button>
+            <Button variant="contained" onClick={handlePreviousClick} disabled={currAns===1}>Previous</Button>
+            <Button variant="contained" onClick={handleApproveClick} disabled={currAns<Object.keys(results).length}>Approve</Button>
+            <Button variant="contained" onClick={handleNextClick} disabled={currAns === Object.keys(results).length}>Next</Button>
            </div>
         </>
 

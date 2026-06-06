@@ -33,6 +33,7 @@ const QuestionForm = () => {
     e.preventDefault();
     
     const postRubrics = await axios.post(`http://localhost:5000/api/${examId}/postRubrics`,{questions})
+    console.log("hi");
     navigate(`/Instructor/exam/${examId}`)
   };
 

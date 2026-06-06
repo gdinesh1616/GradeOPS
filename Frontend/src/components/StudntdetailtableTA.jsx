@@ -21,9 +21,7 @@ export default function StudentdetailtableTA(prop){
   
 }, []);
 
-const handleClick = ()=>{
-      navigate(`/TA/${prop.examId}/student/${data[0]._id}/approve`)
-}
+
     return(
 <div class="table-container">
   <h2 class="table-title">📊 Student Evaluation Details</h2>
@@ -45,10 +43,12 @@ const handleClick = ()=>{
           <tr key={index}>
             <td>{student.rollNo}</td>
             <td>{student.totalMarksByLLM}</td>
-            <td>{student.marksByTA}</td>
+            <td>{student.totalMarksByTA}</td>
             <td>{student.status}</td>
             <td>{student.remarks}</td>
-            <td><Button variant="contained" onClick={handleClick} studentId={student._id}>Approve/Edit</Button></td>
+            <td><Button variant="contained" onClick={ ()=>{
+      navigate(`/TA/${prop.examId}/student/${student._id}/approve`)
+}} studentId={student._id}>Approve/Edit</Button></td>
           </tr>
         ))}
       </tbody>

@@ -29,7 +29,6 @@ app.get("/api/exam/data",async(req,res)=>{
   const data = await Course.find({});
   res.send(data);
 })
-
 app.get("/api/exam/:examId",async(req,res)=>{
   const id = req.params.examId;
   const data = await Course.find({_id:id});
@@ -122,15 +121,25 @@ app.post("/api/exam/:examId/qpUpload",upload.single("qp"),async(req,res)=>{
 })
 app.get("/api/:examId/student/:studentId/getDetails",async(req,res)=>{
     const studentId = req.params.studentId;
-    console.log("hi")
     const result = await Student.findById(studentId);
-    console.log(result);
     res.send(result);
 })
 app.get("/api/:examId/qp",async(req,res)=>{
     const examId = req.params.examId;
     const response = await Course.findById(examId);
   res.send(response.qpURL);   
+})
+
+app.put("/api/:examId/student/:studentId/updateResults",async(req,res)=>{
+  const studentId = req.params.studentId;
+  const results = req.body;
+   const totalMarksByTA = Object.values(results).reduce(
+        (sum,q)=>sum + Number(q.marks),
+        0
+    );
+  const updatedStudent =
+      await Student.findByIdAndUpdate(studentId,{results: results,totalMarksByTA: totalMarksByTA,status:"Approved by TA"},{new:true});
+      res.json(updatedStudent);
 })
 
 app.get("/api/user", (req, res) => {

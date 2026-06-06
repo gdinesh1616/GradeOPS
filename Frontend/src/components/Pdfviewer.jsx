@@ -2,6 +2,7 @@ import { useState, useRef,useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import "../css/Pdfviewer.css"
 import Button from '@mui/material/Button';
+import axios from "axios";
 
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -11,12 +12,19 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 // IMPORTANT: fix worker
 //pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
-function PDFViewer() {
-  const pdfUrl = "https://res.cloudinary.com/dzusarwvk/raw/upload/v1776440522/iwltt0dsmjgxhwfr0kyy.pdf"; // <-- YOUR PDF URL
+function PDFViewer(prop) {
+  const[data,setData] = useState();
 
+   useEffect(()=>{
+        const fetchdata = async()=>{
+        const response = await axios.get(`http://localhost:5000/api/${prop.examId}/student/${prop.studentId}/getDetails`)
+        setData(response.data)
+    }
+  fetchdata();
+  })
+  const pdfUrl = data?.answerScriptURL; // <-- YOUR PDF URL
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-
   const onLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
   };

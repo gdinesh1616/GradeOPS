@@ -42,7 +42,7 @@ export default function Addstudent(){
     data.append("rollNo",formData.rollNo);
     data.append("examId",formData.examId);
 
-    navigate(`Instructor/exam/${examId}`);
+    navigate(`/Instructor/exam/${examId}`);
     try{
         console.log(data);
         const res = await axios.post(`http://localhost:5000/api/exam/${examId}/student`,data)

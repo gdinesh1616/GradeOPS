@@ -4,13 +4,20 @@ import Marksdetails from '../components/Marksdetails'
 import MarksTable from '../components/Marksdetails'
 import "../css/Approvepaper.css"
 import TAapproval from '../components/TAapproval'
+import { useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { BrowserRouter,Routes,Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 export default function Approvepaper(){
-    const studentId = 123;
+    const {studentId,examId} = useParams();
+
     return(
         <>
             <Navbar></Navbar>
             <div className="approvePaperBody">
-                <PDFviewer></PDFviewer>
+                <PDFviewer studentId={studentId} examId={examId}></PDFviewer>
                 <div style={{
                     width: "1px",
                     height: "100vh",

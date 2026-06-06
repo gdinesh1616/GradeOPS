@@ -12,7 +12,7 @@ const studentSchema = new mongoose.Schema({
         type:Number,
         default:null,
     },
-    marksByTA:{
+    totalMarksByTA:{
         type:Number,
         default:null,
     },
