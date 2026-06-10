@@ -35,7 +35,7 @@ def pdfToText_node(state):
 
     # detect and read text
         read_lines = read_page(img, 
-                                DetectorConfig(scale=0.5, margin=5), 
+                                DetectorConfig(scale=0.7, margin=5), 
                                 line_clustering_config=LineClusteringConfig(min_words_per_line=2))
 
     # output text

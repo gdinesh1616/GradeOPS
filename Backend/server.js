@@ -50,7 +50,8 @@ try {
       examId:req.body.examId
     });
 
-    await student.save();
+    const response = await student.save();
+    res.send(response);
   } catch (err) {
     console.log(err);
     res.status(500).send("Error");

@@ -1,52 +1,40 @@
-import React, { useState } from 'react';
-import '../css/Uploadqpform.css';
 import axios from "axios";
-import { useParams } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
+import '../../css/Uploadqpform.css';
 
 
 const QuestionFormTA = () => {
+
   const navigate = useNavigate();
   const {examId} = useParams();
-  
   const [questions, setQuestions] = useState([
     { questionText: '', maxMarks: '', rubrics: '' }
   ]);
   const [isEditMode,setIsEditMode] = useState(false);
 
   
-useEffect(()=>{
-
-const fetchQuestions = async()=>{
-   const res = await axios.get(`http://localhost:5000/api/${examId}/getQuestions`);
-   console.log(res.data.questions);
-   if(res.data.questions){
-      setQuestions(
-         Object.values(res.data.questions)
-      );
-      setIsEditMode(true);
-   }
-   else{
-      setQuestions([
-         {
-            questionText:"",
-            maxMarks:"",
-            rubrics:""
-         }
-      ]);
-   }
-}
-
-fetchQuestions();
-
-},[])
-  
-
-
- 
-
+    useEffect(()=>{
+      const fetchQuestions = async()=>{
+        const res = await axios.get(`http://localhost:5000/api/${examId}/getQuestions`);
+        if(res.data.questions){
+            setQuestions(
+              Object.values(res.data.questions)
+            );
+            setIsEditMode(true);
+        }
+        else{
+            setQuestions([
+              {
+                  questionText:"",
+                  maxMarks:"",
+                  rubrics:""
+              }
+            ]);
+        }
+      }
+      fetchQuestions();
+    },[])
 
   return (
     <div className="container">

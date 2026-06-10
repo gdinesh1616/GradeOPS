@@ -1,7 +1,7 @@
 .taApproval{
     background-color: white;
     width:450px;
-    height:auto;
+    height:fit-content;
     border-radius: 2rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     padding:1rem;
@@ -9,5 +9,9 @@
     
 }
 .editMarks{
-    width:1rem;
+    width:1.5rem;
+}
+.btns{
+    display: flex;
+    justify-content: space-evenly;
 }

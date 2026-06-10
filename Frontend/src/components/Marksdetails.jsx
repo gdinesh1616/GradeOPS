@@ -1,110 +1,110 @@
-import { useState } from "react";
-import "../css/Marksdetails.css";
+// import { useState } from "react";
+// import "../css/Marksdetails.css";
 
-function MarksTable() {
-  // Mock backend data
-  const initialData = Array.from({ length: 25 }, (_, i) => ({
-    questionNo: i + 1,
-    marks: Math.floor(Math.random() * 10),
-    reason: "Sample reason",
-  }));
+// function MarksTable() {
 
-  const [data, setData] = useState(initialData);
-  const [isEditing, setIsEditing] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
+//   const initialData = Array.from({ length: 25 }, (_, i) => ({
+//     questionNo: i + 1,
+//     marks: Math.floor(Math.random() * 10),
+//     reason: "Sample reason",
+//   }));
 
-  const itemsPerPage = 8;
+//   const [data, setData] = useState(initialData);
+//   const [isEditing, setIsEditing] = useState(false);
+//   const [currentPage, setCurrentPage] = useState(0);
 
-  const start = currentPage * itemsPerPage;
-  const currentData = data.slice(start, start + itemsPerPage);
+//   const itemsPerPage = 8;
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+//   const start = currentPage * itemsPerPage;
+//   const currentData = data.slice(start, start + itemsPerPage);
 
-  // Handle marks change
-  const handleChange = (index, value) => {
-    const updated = [...data];
-    updated[start + index].marks = value;
-    setData(updated);
-  };
+//   const totalPages = Math.ceil(data.length / itemsPerPage);
 
-  const prevPage = () => {
-    setCurrentPage((p) => Math.max(p - 1, 0));
-  };
+//   // Handle marks change
+//   const handleChange = (index, value) => {
+//     const updated = [...data];
+//     updated[start + index].marks = value;
+//     setData(updated);
+//   };
 
-  const nextPage = () => {
-    setCurrentPage((p) => Math.min(p + 1, totalPages - 1));
-  };
+//   const prevPage = () => {
+//     setCurrentPage((p) => Math.max(p - 1, 0));
+//   };
 
-  const approveHandler = () => {
-    setIsEditing(false);
-    console.log("Approved Data:", data);
-  };
+//   const nextPage = () => {
+//     setCurrentPage((p) => Math.min(p + 1, totalPages - 1));
+//   };
 
-  return (
-    <div className="marks-page">
-      <div className="marks-card">
+//   const approveHandler = () => {
+//     setIsEditing(false);
+//     console.log("Approved Data:", data);
+//   };
 
-        <div className="marks-header">
-          📊 Student Evaluation Details
-        </div>
+//   return (
+//     <div className="marks-page">
+//       <div className="marks-card">
 
-        <div className="marks-actions">
-          <button className="btn" onClick={() => setIsEditing(true)}>
-            Edit
-          </button>
+//         <div className="marks-header">
+//           📊 Student Evaluation Details
+//         </div>
 
-          <button className="btn" onClick={approveHandler}>
-            Approve
-          </button>
-        </div>
+//         <div className="marks-actions">
+//           <button className="btn" onClick={() => setIsEditing(true)}>
+//             Edit
+//           </button>
 
-        <table className="marks-table">
-          <thead>
-            <tr>
-              <th>Question No</th>
-              <th>Marks</th>
-              <th>Reason</th>
-            </tr>
-          </thead>
+//           <button className="btn" onClick={approveHandler}>
+//             Approve
+//           </button>
+//         </div>
 
-          <tbody>
-            {currentData.map((item, index) => (
-              <tr key={item.questionNo}>
-                <td>{item.questionNo}</td>
+//         <table className="marks-table">
+//           <thead>
+//             <tr>
+//               <th>Question No</th>
+//               <th>Marks</th>
+//               <th>Reason</th>
+//             </tr>
+//           </thead>
 
-                <td>
-                  <input
-                    className="marks-input"
-                    type="number"
-                    value={item.marks}
-                    disabled={!isEditing}
-                    onChange={(e) =>
-                      handleChange(index, e.target.value)
-                    }
-                  />
-                </td>
+//           <tbody>
+//             {currentData.map((item, index) => (
+//               <tr key={item.questionNo}>
+//                 <td>{item.questionNo}</td>
 
-                <td><a href='#'>View Reason</a></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+//                 <td>
+//                   <input
+//                     className="marks-input"
+//                     type="number"
+//                     value={item.marks}
+//                     disabled={!isEditing}
+//                     onChange={(e) =>
+//                       handleChange(index, e.target.value)
+//                     }
+//                   />
+//                 </td>
 
-        {totalPages > 1 && (
-          <div className="pagination">
-            <button onClick={prevPage}>{"<"}</button>
+//                 <td><a href='#'>View Reason</a></td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
 
-            <span>
-              Page {currentPage + 1} of {totalPages}
-            </span>
+//         {totalPages > 1 && (
+//           <div className="pagination">
+//             <button onClick={prevPage}>{"<"}</button>
 
-            <button onClick={nextPage}>{">"}</button>
-          </div>
-        )}
+//             <span>
+//               Page {currentPage + 1} of {totalPages}
+//             </span>
 
-      </div>
-    </div>
-  );
-}
+//             <button onClick={nextPage}>{">"}</button>
+//           </div>
+//         )}
 
-export default MarksTable;
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default MarksTable;

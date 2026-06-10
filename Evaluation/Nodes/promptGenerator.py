@@ -35,6 +35,7 @@ INSTRUCTIONS:
 - Follow the rubric strictly
 - Do not give extra marks
 - Be concise but clear in reasoning
+- Only give marks if the keywords mentioned in the rubrics were present
 
 Return output in JSON format like:
 {{

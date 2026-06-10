@@ -1,4 +1,4 @@
-.login::before {
+/* .login::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -14,7 +14,7 @@
   position: fixed;
   inset: 0;
 
-  background: rgba(0, 0, 0, 0.4); /* dark overlay */
+  background: rgba(0, 0, 0, 0.4); 
   z-index: -1;
 }
 .login{
@@ -45,4 +45,146 @@
     background-color: rgb(0, 0, 0,0);
     border: 2px solid white;
     color:white;
+} */
+
+.role-page{
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:#f3f3f3;
+
+padding:20px;
+
+}
+
+.role-card{
+
+background:white;
+
+padding:50px;
+
+border-radius:25px;
+
+box-shadow:
+0 8px 25px rgba(0,0,0,.15);
+
+width:850px;
+
+max-width:100%;
+
+}
+
+.title{
+
+text-align:center;
+
+font-size:48px;
+
+margin:0;
+
+color:#1976D2;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+font-size:18px;
+
+color:gray;
+
+margin-bottom:50px;
+
+}
+
+.role-options{
+
+display:flex;
+
+gap:30px;
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+}
+
+.role-box{
+
+width:280px;
+
+padding:40px;
+
+background:#fafafa;
+
+border-radius:20px;
+
+box-shadow:
+0 4px 15px rgba(0,0,0,.1);
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+gap:20px;
+
+transition:.3s;
+
+}
+
+.role-box:hover{
+
+transform:translateY(-5px);
+
+}
+
+.role-box span{
+
+font-size:60px;
+
+}
+
+.role-box button{
+
+background:#1976D2;
+
+color:white;
+
+border:none;
+
+padding:12px 30px;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-size:16px;
+
+}
+
+@media(max-width:700px){
+
+.role-options{
+
+flex-direction:column;
+
+align-items:center;
+
+}
+
+.title{
+
+font-size:36px;
+
+}
+
 }

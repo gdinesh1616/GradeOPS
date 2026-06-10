@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 import {
   Card,
   CardContent,
@@ -31,7 +30,6 @@ export default function Newexamform() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    // Clear error on change
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' });
     }
@@ -53,9 +51,8 @@ export default function Newexamform() {
       setErrors(validationErrors);
       return;
     }
-    navigate('/');
+    navigate('/Instructor');
     setLoading(true);
-    // Simulate async submission
     setTimeout(() => {
       console.log('Submitted Data:', formData);
       setSubmittedData(formData);
@@ -122,7 +119,6 @@ export default function Newexamform() {
             />
             <TextField
               fullWidth
-            //   label="Conducted On"
               name="conductedOn"
               type="date"
               value={formData.conductedOn}
@@ -162,7 +158,6 @@ export default function Newexamform() {
               Form submitted successfully!
             </Alert>
           )}
-          
         </CardContent>
       </Card>
     </Box>

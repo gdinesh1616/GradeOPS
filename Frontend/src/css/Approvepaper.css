@@ -1,9 +1,7 @@
-
 .approvePaperBody{
      background-color: rgb(241, 252, 255);
     display: flex;
     width:100%;
     justify-content: space-around;
-    
     padding-top:1rem;
 }

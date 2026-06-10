@@ -1,6 +1,5 @@
-.counter {
+/* .counter {
   font-size: 16px;
-  padding: 5px 10px;
   border-radius: 5px;
   color: var(--accent);
   background: var(--accent-bg);
@@ -181,4 +180,7 @@
     right: 0;
     border-right-color: var(--border);
   }
+} */
+.page{
+    margin-top: 64px;
 }

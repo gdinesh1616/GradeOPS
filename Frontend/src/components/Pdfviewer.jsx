@@ -1,60 +1,64 @@
 import { useState, useRef,useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import "../css/Pdfviewer.css"
 import Button from '@mui/material/Button';
 import axios from "axios";
+import "../css/Pdfviewer.css"
+
 
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
   import.meta.url
 ).toString();
-// IMPORTANT: fix worker
-//pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+
 
 function PDFViewer(prop) {
-  const[data,setData] = useState();
 
-   useEffect(()=>{
-        const fetchdata = async()=>{
-        const response = await axios.get(`http://localhost:5000/api/${prop.examId}/student/${prop.studentId}/getDetails`)
-        setData(response.data)
-    }
-  fetchdata();
-  })
-  const pdfUrl = data?.answerScriptURL; // <-- YOUR PDF URL
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const onLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-  };
-const pageRight = useRef(null);
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "ArrowRight") {
-        pageRight.current.click(); // 👈 simulate click
+    const[data,setData] = useState();
+    const pdfUrl = data?.answerScriptURL;
+    const [numPages, setNumPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
+
+    useEffect(()=>{
+          const fetchdata = async()=>{
+          const response = await axios.get(`http://localhost:5000/api/${prop.examId}/student/${prop.studentId}/getDetails`)
+          setData(response.data)
       }
+    fetchdata();
+    })
+
+    const onLoadSuccess = ({ numPages }) => {
+      setNumPages(numPages);
     };
+    
+    const pageRight = useRef(null);
+    const pageLeft = useRef(null);
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+    useEffect(() => {
+      const handleKeyDown = (e) => {
+        if (e.key === "ArrowRight") {
+          pageRight.current.click();
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }, []);
 
-  const pageLeft = useRef(null);
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "ArrowLeft") {
-        pageLeft.current.click(); // 👈 simulate click
-      }
-    };
+    
+    useEffect(() => {
+      const handleKeyDown = (e) => {
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+        if (e.key === "ArrowLeft") {
+          pageLeft.current.click(); 
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }, []);
 
   return (
     <div style={{ textAlign: "center" }}>
-
       <Document file={pdfUrl} onLoadSuccess={onLoadSuccess}>
         <Page 
             pageNumber={pageNumber} 
@@ -64,17 +68,14 @@ const pageRight = useRef(null);
             height={600}
         />
       </Document>
-
       <p>
         Page {pageNumber} of {numPages}
       </p>
-
       <Button ref={pageLeft}
         onClick={() => setPageNumber((p) => Math.max(p - 1, 1))}
       >
         Prev
       </Button>
-
       <Button ref={pageRight}
         onClick={() =>
           setPageNumber((p) => Math.min(p + 1, numPages))
