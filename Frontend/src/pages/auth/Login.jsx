@@ -8,7 +8,7 @@ export default function Login () {
     const navigateToInsPage = ()=>{
         navigate('/Instructor');
     }
-    
+
     const navigateToTAPage = ()=>{
         navigate('/TA');
     }

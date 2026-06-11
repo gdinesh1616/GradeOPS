@@ -1,5 +1,6 @@
 import axios from "axios";
 import Button from '@mui/material/Button';
+import { toast } from "react-toastify"
 import { useEffect, useState,useParams } from "react";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
@@ -14,8 +15,12 @@ export default function StudentdetailtableTA (prop) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(`http://localhost:5000/api/${prop.examId}/studentdata`);
-      setData(result.data);
+      try{
+        const result = await axios.get(`http://localhost:5000/api/${prop.examId}/studentdata`);
+        setData(result.data);
+      }catch(e){
+        toast.error(e.message);
+      }
     };
 
     fetchData();

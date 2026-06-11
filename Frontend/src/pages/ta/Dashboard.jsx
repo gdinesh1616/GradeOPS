@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
 import Button from '@mui/material/Button';
@@ -15,7 +16,7 @@ export default function DashboardTA(){
     useEffect(() => {
       axios.get("http://localhost:5000/api/exam/data")
       .then(res => setCourses(res.data))
-      .catch(err => console.error(err));
+      .catch((err) => {toast.error(err.message)});
     }, []);
 
 

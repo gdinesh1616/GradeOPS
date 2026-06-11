@@ -1,4 +1,5 @@
 import axios from "axios"
+import { toast } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar"
@@ -12,25 +13,18 @@ export default function ViewstudentTA () {
     const { examId } = useParams();
     const navigate = useNavigate();
     const [coursename, setCoursename] = useState("XX0000");
-    const [qpURL,setQpURL] = useState();
 
-    useEffect( ()=>{
-        axios.get(`http://localhost:5000/api/${examId}/qp`)
-        .then(res => setQpURL(res.data))
-        .catch(err => console.log(err));
-
-    })
 
     useEffect(()=>{
      axios.get(`http://localhost:5000/api/exam/${examId}`)
-      .then(res => setCoursename(res.data[0].courseName))
-      .catch(err => console.error(err));
+      .then(res => setCoursename(res.data.courseName))
+      .catch((err) => {toast.error(err.message)});
     },[])
 
     const handleClick = async ()=>{
         navigate(`/TA/${examId}/viewRubrics`);
     }
-    
+
     return(
         <>
             <Navbar></Navbar>

@@ -8,8 +8,14 @@ const questionSchema = new mongoose.Schema({
 
 
 const courseSchema = new mongoose.Schema({
-  courseName: String,
-  numStudents: Number,
+  courseName: {
+    type:String,
+    required:[true,"courseName is required"],
+  },
+  numStudents: {
+    type:Number,
+    required:[true,"number of students is required"],
+  },
   conductedOn: Date,
   numTAs: Number,
   qpURL:String,

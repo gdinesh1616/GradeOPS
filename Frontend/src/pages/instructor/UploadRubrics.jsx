@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import React, { useState,useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
 import '../../css/Uploadqpform.css';
@@ -15,22 +16,25 @@ const QuestionForm = () => {
 
     useEffect(()=>{
       const fetchQuestions = async()=>{
-        const res = await axios.get(`http://localhost:5000/api/${examId}/getQuestions`);
-        console.log(res.data.questions);
-        if(res.data.questions){
-            setQuestions(
-              Object.values(res.data.questions)
-            );
-            setIsEditMode(true);
-        }
-        else{
-            setQuestions([
-              {
-                  questionText:"",
-                  maxMarks:"",
-                  rubrics:""
-              }
-            ]);
+        try{
+          const res = await axios.get(`http://localhost:5000/api/${examId}/getQuestions`);
+          if(res.data.questions){
+              setQuestions(
+                Object.values(res.data.questions)
+              );
+              setIsEditMode(true);
+          }
+          else{
+              setQuestions([
+                {
+                    questionText:"",
+                    maxMarks:"",
+                    rubrics:""
+                }
+              ]);
+          }          
+        }catch(e){
+          toast.error(e.message);
         }
       }
       fetchQuestions();
@@ -54,7 +58,12 @@ const QuestionForm = () => {
 
     const handleSubmit = async (e) => {
       e.preventDefault();
-      const postRubrics = await axios.post(`http://localhost:5000/api/${examId}/postRubrics`,{questions})
+      try{
+        const postRubrics = await axios.post(`http://localhost:5000/api/${examId}/postRubrics`,{questions});
+        toast.success("Rubrics added successfully");
+      }catch(e){
+        toast.error(e.message);
+      }
     };
 
     const navigateTo = ()=>{

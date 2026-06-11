@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {toast} from "react-toastify";
 import '../css/Studentdetailtable.css'
 
 
@@ -9,8 +10,13 @@ export default function StudentdetailtableI(prop){
 
     useEffect(() => {
       const fetchData = async () => {
-        const result = await axios.get(`http://localhost:5000/api/${prop.examId}/studentdata`);
-        setData(result.data);
+        try{
+          const result = await axios.get(`http://localhost:5000/api/${prop.examId}/studentdata`);
+          setData(result.data);
+        }catch(e){
+          toast.error(e.message);
+        }
+        
       };
       fetchData();
     }, []);

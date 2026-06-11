@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import CssBaseline from '@mui/material/CssBaseline';
 import DashboardTA from './pages/ta/Dashboard';
 import Login from './pages/auth/Login';
@@ -22,6 +24,11 @@ function App() {
     <ThemeProvider theme={theme}>
        
       <BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+      />
+
         <Routes>
           <Route path="/" element={<Login/>}></Route>
           <Route path="/Instructor" element={<Instructorexam/>}></Route>
@@ -34,7 +41,6 @@ function App() {
           <Route path="/TA/:examId/student/:studentId/approve" element={<Approvepaper/>}></Route>
           <Route path="/TA/:examId/viewRubrics" element={<QuestionFormTA/>}></Route>
         </Routes>
-     
       </BrowserRouter>
     </ThemeProvider>
   )

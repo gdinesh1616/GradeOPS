@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
 import '../../css/Uploadqpform.css';
@@ -16,7 +17,8 @@ const QuestionFormTA = () => {
   
     useEffect(()=>{
       const fetchQuestions = async()=>{
-        const res = await axios.get(`http://localhost:5000/api/${examId}/getQuestions`);
+        try{
+          const res = await axios.get(`http://localhost:5000/api/${examId}/getQuestions`);
         if(res.data.questions){
             setQuestions(
               Object.values(res.data.questions)
@@ -32,6 +34,10 @@ const QuestionFormTA = () => {
               }
             ]);
         }
+        }catch(e){
+          toast.error(e.message);
+        }
+        
       }
       fetchQuestions();
     },[])

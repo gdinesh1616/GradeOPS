@@ -2,6 +2,7 @@ import axios from "axios";
 import Navbar from '../../components/Navbar'
 import Examcard from '../../components/Examcard'
 import Button from '@mui/material/Button';
+import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import '../../css/App.css'
@@ -15,8 +16,8 @@ function Instructorexam () {
 
     useEffect(() => {
       axios.get("http://localhost:5000/api/exam/data")
-      .then(res => setCourses(res.data))
-      .catch(err => console.error(err));
+      .then((res) => setCourses(res.data))
+      .catch((err) => {toast.error(err.message)});
     }, []);
 
     for (let i = 0; i < courses.length; i++) {

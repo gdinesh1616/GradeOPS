@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, useParams, useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
@@ -46,10 +47,12 @@ export default function Addstudent () {
             console.log(data);
             const res = await axios.post(`http://localhost:5000/api/exam/${examId}/student`,data)
             setIsLoading(false);
-            navigate(`/Instructor/exam/${examId}`);
-            
+            toast.success("Student added succesfully");
         }catch(e){
+            toast.error(e.response.data.message);
             console.log(e);
+        }finally{
+            navigate(`/Instructor/exam/${examId}`);
         }
     }
   

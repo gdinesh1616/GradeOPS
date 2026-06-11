@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
@@ -11,6 +12,7 @@ import {
   Alert,
   CircularProgress,
 } from '@mui/material';
+import "../../css/CreateExam.css"
 
 export default function Newexamform() {
     const navigate = useNavigate();
@@ -26,6 +28,8 @@ export default function Newexamform() {
   const [submittedData, setSubmittedData] = useState(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [type,setType] = useState("")
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,8 +66,10 @@ export default function Newexamform() {
 
       try {
     const res = await axios.post('http://localhost:5000/api/exam/submit', formData);
+    toast.success("Exam Created Successfully!");
     console.log(res.data);
   } catch (err) {
+    toast.error("Something went wrong!");
     console.error(err);
   }
   
@@ -153,11 +159,6 @@ export default function Newexamform() {
             </Button>
 
           </Box>
-          {success && (
-            <Alert severity="success" sx={{ mt: 2 }}>
-              Form submitted successfully!
-            </Alert>
-          )}
         </CardContent>
       </Card>
     </Box>
