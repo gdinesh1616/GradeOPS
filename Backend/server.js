@@ -195,6 +195,73 @@ app.get("/api/:examId/studentdata",async(req,res,next)=>{
 
 // })
 
+function generateNGrams(text, n = 8) {
+
+    const words = text
+        .toLowerCase()
+        .replace(/[^\w\s]/g, "")
+        .split(/\s+/);
+
+    const ngrams = [];
+
+    for(let i = 0; i <= words.length - n; i++) {
+
+        ngrams.push(
+            words.slice(i, i + n).join(" ")
+        );
+    }
+
+    return ngrams;
+}
+
+function findCommonPhrases(text1, text2) {
+
+    const set1 = new Set(
+        generateNGrams(text1, 8)
+    );
+
+    const set2 = new Set(
+        generateNGrams(text2, 8)
+    );
+
+    return [...set1].filter(
+        phrase => set2.has(phrase)
+    );
+}
+
+app.get("/api/exam/:examId/cheatingStatus",async(req,res,next)=>{
+  console.log("hi");
+  const examId = req.params.examId;
+  const students = await Student.find({examId: examId});
+
+  const suspiciousPairs = [];
+
+for(let i = 0; i < students.length; i++) {
+    for(let j = i + 1; j < students.length; j++) {
+        const commonPhrases =
+            findCommonPhrases(
+                students[i].answerText,
+                students[j].answerText
+            );
+        if(commonPhrases.length >= 2) {
+          students[i].suspiciousMatches.push({
+              rollNo: students[j].rollNo,
+              matchedPhrases: commonPhrases,
+          });
+          students[j].suspiciousMatches.push({
+              rollNo: students[i].rollNo,
+              matchedPhrases: commonPhrases
+          });
+          students[i].possibleCheating = true;
+          students[j].possibleCheating = true;
+
+          await students[i].save();
+          await students[j].save();
+        }
+    }
+}
+})
+
 app.get("/api/:examId/getQuestions",async(req,res,next)=>{
   try{
   const examId = req.params.examId;

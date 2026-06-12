@@ -82,8 +82,7 @@ export default function Newexamform() {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh',
-        backgroundColor: '#f5f5f5',
-        padding: 2,
+        backgroundColor: '#ffffff',
       }}
     >
       <Card

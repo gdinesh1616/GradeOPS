@@ -17,7 +17,7 @@ export default function ViewstudentTA () {
 
     useEffect(()=>{
      axios.get(`http://localhost:5000/api/exam/${examId}`)
-      .then(res => setCoursename(res.data.courseName))
+      .then((res) => {setCoursename(res.data.courseName)})
       .catch((err) => {toast.error(err.message)});
     },[])
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify"
-import { useEffect, useState} from "react";
+import { useEffect, useState, useRef } from "react";
 import { BrowserRouter,Routes,Route,useNavigate,useParams } from "react-router-dom";
 import Button from '@mui/material/Button';
 import '../css/TAapproval.css'
@@ -12,6 +12,7 @@ export default function TAapproval(){
     const [results,setResults] = useState({})
     const [currAns,setCurrAns] = useState(1);
     const [maxMarks,setMaxMarks] = useState("");
+    const marksRef = useRef(null);
     const key = `Q${currAns}`;
     const navigate = useNavigate();
 
@@ -43,10 +44,15 @@ export default function TAapproval(){
         fetchData();
     },[])
 
+    useEffect(() => {
+        marksRef.current?.focus();
+        marksRef.current?.select();
+    }, [currAns]);
+
     const handleMarksChange = (e)=>{
         const enteredMarks = Number(e.target.value);
-        if(enteredMarks>maxMarks[currAns-1].maxMarks){
-             toast.error(`Marks cannot exceed ${maxMarks[currAns-1].maxMarks}`);
+        if(enteredMarks>maxMarks[currAns-1]?.maxMarks){
+             toast.error(`Marks cannot exceed ${maxMarks[currAns-1]?.maxMarks}`);
              return;
         }
         if(enteredMarks<0){
@@ -84,7 +90,7 @@ export default function TAapproval(){
     }
 
     const handleApproveClick = async ()=>{
-        if(results[key].marks === ''){
+        if(results[key]?.marks === ''){
             toast.error("Marks cannot be empty");
             return
         }
@@ -98,7 +104,54 @@ export default function TAapproval(){
           }
          
     }
-   
+    
+
+    const handleEnter = async (e) => {
+
+    if (e.key !== "Enter") return;
+
+    const marks = results[key]?.marks;
+
+    if (
+        marks === "" ||
+        marks === undefined ||
+        marks === null
+    ) {
+        toast.error("Marks cannot be empty");
+        return;
+    }
+
+    // Not last question -> go next
+    if (currAns < Object.keys(results).length) {
+
+        setCurrAns(prev => prev + 1);
+
+    }
+    // Last question -> approve automatically
+    else {
+
+        try {
+
+            await axios.put(
+                `http://localhost:5000/api/${examId}/student/${studentId}/updateResults`,
+                results
+            );
+
+            toast.success("Approved Successfully");
+
+            navigate(`/TA/exam/${examId}`);
+
+        } catch (error) {
+
+            toast.error(
+                error.response?.data?.message ||
+                error.message
+            );
+
+        }
+    }
+};
+
     return(
         <>
            <div className="taApproval">
@@ -107,7 +160,7 @@ export default function TAapproval(){
                 <p>Marks : {data.totalMarksByTA?data.totalMarksByTA:data.totalMarksByLLM}</p>
                 <hr></hr>
                 <p>Question:{currAns}</p>
-                <p>Marks:<input className="editMarks" value={results[key]?.marks} onChange={handleMarksChange}></input>/{maxMarks[currAns-1]?.maxMarks}</p>
+                <p>Marks:<input ref={marksRef} className="editMarks" value={results[key]?.marks} onChange={handleMarksChange} onKeyDown={handleEnter}></input>/{maxMarks[currAns-1]?.maxMarks}</p>
                 <h4>Reason:{questions[currAns-1]?.reason}</h4>
 
                 <div className="btns">

@@ -43,7 +43,8 @@ export default function ViewstudentI(){
           }
           for(let i=0;i<scripts.data.length;i++){
             let scriptURL = scripts.data[i].answerScriptURL
-            const response = await axios.post(`http://localhost:5000/${examId}/${scripts.data[i]._id}/evaluate`,{scriptURL})
+            const response1 = await axios.post(`http://localhost:5000/${examId}/${scripts.data[i]._id}/evaluate`,{scriptURL});
+            const response2 = await axios.get(`http://localhost:5000/api/exam/${examId}/cheatingStatus`)
           }
         }catch(e){
           console.log(e);

@@ -35,6 +35,7 @@ export default function StudentdetailtableI(prop){
               <th>TA Marks</th>
               <th>Status</th>
               <th>Remarks</th>
+              <th>Cheating Status</th>
             </tr>
           </thead>
 
@@ -47,6 +48,56 @@ export default function StudentdetailtableI(prop){
                 <td>{student.totalMarksByTA}</td>
                 <td>{student.status}</td>
                 <td>{student.remarks}</td>
+                <td>
+
+    {student.suspiciousMatches?.length > 0 ? (
+
+        <div className="cheatingStatus">
+
+            <button>Suspicious</button>
+
+            <div className="hoverCard">
+
+                <strong>Similar To</strong>
+
+                {
+    student.suspiciousMatches.map(match => (
+        <div key={match.rollNo}>
+
+            <p>
+                Roll No:
+                {match.rollNo}
+            </p>
+
+            <ul>
+    {
+        match.matchedPhrases
+            .slice(0, 2)
+            .map((phrase, index) => (
+                <li key={index}>
+                    {phrase}
+                </li>
+            ))
+    }
+</ul>
+
+            <hr />
+
+        </div>
+    ))
+}
+
+            </div>
+
+        </div>
+
+    ) : (
+
+        <span>✓ Clear</span>
+
+    )}
+
+</td>
               </tr>
             ))}
           </tbody>

@@ -8,10 +8,6 @@ const resultSchema = new mongoose.Schema({
 const studentSchema = new mongoose.Schema({
     rollNo: Number,
     answerScriptURL:String,
-    marksByLLM:{
-        type:Number,
-        default:null,
-    },
     totalMarksByTA:{
         type:Number,
         default:null,
@@ -34,6 +30,16 @@ const studentSchema = new mongoose.Schema({
     },
     totalMarksByLLM:Number,
     totalMarksByTA:Number,
+    suspiciousMatches: [
+    {
+        rollNo: Number,
+        matchedPhrases: [String]
+    }
+    ],
+    possibleCheating: {
+        type: Boolean,
+        default:false,
+    },
     remarks:String,
 })
 const Student = mongoose.model("Student", studentSchema);
