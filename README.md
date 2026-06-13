@@ -128,6 +128,25 @@ PORT=YOUR_BACKEND_PORT
 ### Evaluation(.env)  
 GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY  
 
+## Screenshots
+
+### Login Page
+
+![Login Page](./screenshots/login.png)
+
+### Dashboard
+
+![Evaluation Page](./screenshots/Dashboard.png)
+
+### Evaluation Dashboard
+
+![Instructor Dashboard](./screenshots/Evaluationdashboard.png)
+
+### TA Dashboard
+
+![TA Dashboard](./screenshots/TAapproval.png)
+
+
 ## Directory Overview
 
 - **Frontend/** – User interface for Instructors and Teaching Assistants built using React.
