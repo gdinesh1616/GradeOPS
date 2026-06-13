@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import React, { useState,useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
@@ -17,7 +17,7 @@ const QuestionForm = () => {
     useEffect(()=>{
       const fetchQuestions = async()=>{
         try{
-          const res = await axios.get(`http://localhost:5000/api/${examId}/getQuestions`);
+          const res = await api.get(`/api/${examId}/getQuestions`);
           if(res.data.questions){
               setQuestions(
                 Object.values(res.data.questions)
@@ -59,7 +59,7 @@ const QuestionForm = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try{
-        const postRubrics = await axios.post(`http://localhost:5000/api/${examId}/postRubrics`,{questions});
+        const postRubrics = await api.post(`/api/${examId}/postRubrics`,{questions});
         toast.success("Rubrics added successfully");
       }catch(e){
         toast.error(e.message);

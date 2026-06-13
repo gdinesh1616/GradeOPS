@@ -8,13 +8,15 @@ const axios = require("axios");
 const AppError = require("./utils/AppError.js");
 const errorHandler = require("./middleware/errorMiddleware.js")
 const mongoose = require('mongoose');
+require('dotenv').config();
+
 
 
 main()
 .then(()=>{console.log("Connected to db")})
 .catch(err => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/gradeOPS');
+  await mongoose.connect(process.env.MONGO_URL);
 }
 
 const app = express();
@@ -140,7 +142,7 @@ app.post("/:examId/:studentId/evaluate",async(req,res,next)=>{
         rubrics: q.rubrics
       };
     });
-    const response = await axios.post( "http://127.0.0.1:8000/evaluate",{ pdf_url: url,rubric: formattedQuestions });
+    const response = await axios.post( `${process.env.AI_SERVICE_URL}/evaluate`,{ pdf_url: url,rubric: formattedQuestions });
     if (!response.data) {
     return next(
       new AppError("Evaluation service failed", 500)
@@ -311,4 +313,4 @@ app.put("/api/:examId/student/:studentId/updateResults",async(req,res,next)=>{
 
 app.use(errorHandler);
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+app.listen(process.env.PORT || 5000, () => console.log("Server running on port"));

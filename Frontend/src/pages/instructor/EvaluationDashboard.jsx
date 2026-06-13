@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
@@ -16,7 +16,7 @@ export default function ViewstudentI(){
 
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/api/exam/${examId}`)
+        api.get(`/api/exam/${examId}`)
           .then((res) => {setCoursename(res.data.courseName)})
           .catch((err) => {toast.error(err.message)});
     },[])
@@ -32,8 +32,8 @@ export default function ViewstudentI(){
     const evaluateScripts = async ()=>{
       SetLoading(true);
       try{
-          const scripts = await axios.get(`http://localhost:5000/${examId}/scripts`);
-          const rubrics = await axios.get(`http://localhost:5000/api/${examId}/getQuestions`)
+          const scripts = await api.get(`/${examId}/scripts`);
+          const rubrics = await api.get(`/api/${examId}/getQuestions`)
           if(scripts.data.length == 0){
             toast.error("Add students to evaluate");
             return;
@@ -43,8 +43,8 @@ export default function ViewstudentI(){
           }
           for(let i=0;i<scripts.data.length;i++){
             let scriptURL = scripts.data[i].answerScriptURL
-            const response1 = await axios.post(`http://localhost:5000/${examId}/${scripts.data[i]._id}/evaluate`,{scriptURL});
-            const response2 = await axios.get(`http://localhost:5000/api/exam/${examId}/cheatingStatus`)
+            const response1 = await api.post(`/${examId}/${scripts.data[i]._id}/evaluate`,{scriptURL});
+            const response2 = await api.get(`/api/exam/${examId}/cheatingStatus`)
           }
         }catch(e){
           console.log(e);

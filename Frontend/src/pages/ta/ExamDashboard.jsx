@@ -1,4 +1,4 @@
-import axios from "axios"
+import api from "../../api";
 import { toast } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -16,7 +16,7 @@ export default function ViewstudentTA () {
 
 
     useEffect(()=>{
-     axios.get(`http://localhost:5000/api/exam/${examId}`)
+     api.get(`/api/exam/${examId}`)
       .then((res) => {setCoursename(res.data.courseName)})
       .catch((err) => {toast.error(err.message)});
     },[])

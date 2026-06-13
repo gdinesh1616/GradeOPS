@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
@@ -18,7 +18,7 @@ const QuestionFormTA = () => {
     useEffect(()=>{
       const fetchQuestions = async()=>{
         try{
-          const res = await axios.get(`http://localhost:5000/api/${examId}/getQuestions`);
+          const res = await api.get(`/api/${examId}/getQuestions`);
         if(res.data.questions){
             setQuestions(
               Object.values(res.data.questions)

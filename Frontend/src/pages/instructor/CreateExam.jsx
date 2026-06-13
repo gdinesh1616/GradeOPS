@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from "axios";
+import api from "../../api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import {
@@ -65,7 +65,7 @@ export default function Newexamform() {
     }, 1000);
 
       try {
-    const res = await axios.post('http://localhost:5000/api/exam/submit', formData);
+    const res = await api.post('/api/exam/submit', formData);
     toast.success("Exam Created Successfully!");
     console.log(res.data);
   } catch (err) {

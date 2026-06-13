@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api";
 import { useEffect, useState} from "react";
 import { BrowserRouter, Routes, Route, useNavigate, useParams } from "react-router-dom";
 import PDFviewer from '../../components/Pdfviewer'

@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from '../../api'
 import { toast } from "react-toastify";
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, useParams, useNavigate } from "react-router-dom";
@@ -45,7 +45,7 @@ export default function Addstudent () {
         data.append("examId",formData.examId);
         try{
             console.log(data);
-            const res = await axios.post(`http://localhost:5000/api/exam/${examId}/student`,data)
+            const res = await api.post(`/api/exam/${examId}/student`,data)
             setIsLoading(false);
             toast.success("Student added succesfully");
         }catch(e){

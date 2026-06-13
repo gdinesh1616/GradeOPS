@@ -1,7 +1,7 @@
 import { useState, useRef,useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import Button from '@mui/material/Button';
-import axios from "axios";
+import api from "../api";
 import { toast } from "react-toastify";
 import "../css/Pdfviewer.css"
 
@@ -23,7 +23,7 @@ function PDFViewer(prop) {
     useEffect(()=>{
           const fetchdata = async()=>{
             try{
-              const response = await axios.get(`http://localhost:5000/api/${prop.examId}/student/${prop.studentId}/getDetails`)
+              const response = await api.get(`/api/${prop.examId}/student/${prop.studentId}/getDetails`)
               setData(response.data);
             }catch(e){
               toast.error(e.message);

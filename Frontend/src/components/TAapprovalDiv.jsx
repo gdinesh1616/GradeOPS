@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import { toast } from "react-toastify"
 import { useEffect, useState, useRef } from "react";
 import { BrowserRouter,Routes,Route,useNavigate,useParams } from "react-router-dom";
@@ -20,7 +20,7 @@ export default function TAapproval(){
     useEffect(()=>{
         const fetchdata = async()=>{
             try{
-                const response = await axios.get(`http://localhost:5000/api/${examId}/student/${studentId}/getDetails`)
+                const response = await api.get(`/api/${examId}/student/${studentId}/getDetails`)
                 setData(response.data);
                 setResults(response.data.results);
             }catch(e){
@@ -34,7 +34,7 @@ export default function TAapproval(){
     useEffect(()=>{
         const fetchData = async ()=>{
             try{
-                const response = await axios.get(`http://localhost:5000/api/${examId}/getQuestions`);
+                const response = await api.get(`/api/${examId}/getQuestions`);
                 setMaxMarks(response.data.questions);
             }catch(e){
                 toast.error(e.message);
@@ -95,7 +95,7 @@ export default function TAapproval(){
             return
         }
           try {
-            await axios.put(`http://localhost:5000/api/${examId}/student/${studentId}/updateResults`,results);
+            await api.put(`/api/${examId}/student/${studentId}/updateResults`,results);
             toast.success("Approved Successfully");
           }catch(e){
             toast.error(e.message);
@@ -132,8 +132,8 @@ export default function TAapproval(){
 
         try {
 
-            await axios.put(
-                `http://localhost:5000/api/${examId}/student/${studentId}/updateResults`,
+            await api.put(
+                `/api/${examId}/student/${studentId}/updateResults`,
                 results
             );
 

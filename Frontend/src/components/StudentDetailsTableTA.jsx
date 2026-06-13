@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import Button from '@mui/material/Button';
 import { toast } from "react-toastify"
 import { useEffect, useState,useParams } from "react";
@@ -16,7 +16,7 @@ export default function StudentdetailtableTA (prop) {
   useEffect(() => {
     const fetchData = async () => {
       try{
-        const result = await axios.get(`http://localhost:5000/api/${prop.examId}/studentdata`);
+        const result = await api.get(`/api/${prop.examId}/studentdata`);
         setData(result.data);
       }catch(e){
         toast.error(e.message);

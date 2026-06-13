@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../api";
 import Navbar from '../../components/Navbar'
 import Examcard from '../../components/Examcard'
 import Button from '@mui/material/Button';
@@ -15,7 +15,7 @@ function Instructorexam () {
     const elements = [];
 
     useEffect(() => {
-      axios.get("http://localhost:5000/api/exam/data")
+      api.get("/api/exam/data")
       .then((res) => setCourses(res.data))
       .catch((err) => {toast.error(err.message)});
     }, []);

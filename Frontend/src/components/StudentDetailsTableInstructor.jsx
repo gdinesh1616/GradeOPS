@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import {toast} from "react-toastify";
 import '../css/Studentdetailtable.css'
 
@@ -11,7 +11,7 @@ export default function StudentdetailtableI(prop){
     useEffect(() => {
       const fetchData = async () => {
         try{
-          const result = await axios.get(`http://localhost:5000/api/${prop.examId}/studentdata`);
+          const result = await api.get(`/api/${prop.examId}/studentdata`);
           setData(result.data);
         }catch(e){
           toast.error(e.message);
