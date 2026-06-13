@@ -67,7 +67,6 @@ GradeOPS follows a client-server architecture with an AI-powered evaluation pipe
 
 React.js
 JavaScript
-Tailwind CSS
 
 ### Backend
 
@@ -89,4 +88,42 @@ Large Language Models (LLMs)
 ## Installation
 
 ### Clone the Repository
-git clone 
+git clone https://github.com/gdinesh1616/GradeOPS.git
+cd GradeOPS
+### Install Frontend Dependencies
+#### Open a terminal
+
+cd Frontend
+npm install
+npm run dev
+
+### Install Backend Dependencies
+#### Open a terminal
+
+cd Backend
+npm install
+npm start
+
+### Install Python Dependencies
+#### Open a terminal
+
+cd Evaluation
+pip install -r requirements.txt
+python -m uvicorn api:app --reload --port 8000  
+
+### Configure Environmental Variables
+#### The project uses separate environment configurations for the Backend and AI Evaluation services.
+### Backend (.env)
+CLOUD_NAME
+API_KEY
+API_SECRET
+AI_SERVICE_URL
+MONGO_URL
+
+### Evaluation(.env)
+GOOGLE_API_KEY
+
+
+
+
+
