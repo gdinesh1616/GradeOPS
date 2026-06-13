@@ -32,7 +32,19 @@ export default function DashboardTA(){
                 <h2>Welcome Back,</h2>
                 <p>Current Exams</p>
             </div>
-            <div>{elements}</div>
+            <div>{elements}
+                {!elements && 
+        <div className="no-exams-card">
+          <div className="no-exams-icon">📚</div>
+          <h2>No Current Exams</h2>
+          <p>
+            There are currently no active exams available.
+            Once an instructor creates an exam, it will appear here.
+          </p>
+        </div>
+
+        }
+            </div>
             <p>GRADEOPS</p>
         </>
 

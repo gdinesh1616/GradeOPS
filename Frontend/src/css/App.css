@@ -184,3 +184,42 @@
 .page{
     margin-top: 64px;
 }
+
+.no-exams-card {
+  width: 100%;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 2rem;
+  text-align: center;
+
+  background: #ffffff;
+  border-radius: 16px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+
+  transition: transform 0.2s ease;
+}
+
+.no-exams-card:hover {
+  transform: translateY(-2px);
+}
+
+.no-exams-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.no-exams-card h2 {
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.no-exams-card p {
+  color: #6b7280;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
