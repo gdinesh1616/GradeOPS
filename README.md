@@ -65,8 +65,8 @@ GradeOPS follows a client-server architecture with an AI-powered evaluation pipe
 ## Tech Stack
 ### Frontend
 
-React.js
-JavaScript
+React.js  
+JavaScript  
 
 ### Backend
 
