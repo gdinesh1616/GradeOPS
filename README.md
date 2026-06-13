@@ -70,58 +70,105 @@ JavaScript
 
 ### Backend
 
-Node.js
-Express.js
+Node.js  
+Express.js  
 
 ### Database
 
-MongoDB
-
+MongoDB  
+ 
 ### AI & Machine Learning
 
-Python
-LangChain
-LangGraph
-TensorFlow (OCR and text extraction)
-Large Language Models (LLMs)
+Python  
+LangChain  
+LangGraph  
+TensorFlow (OCR and text extraction)  
+Large Language Models (LLMs)  
 
 ## Installation
 
-### Clone the Repository
-git clone https://github.com/gdinesh1616/GradeOPS.git
-cd GradeOPS
-### Install Frontend Dependencies
-#### Open a terminal
+### Clone the Repository  
+git clone https://github.com/gdinesh1616/GradeOPS.git  
+cd GradeOPS   
+### Install Frontend Dependencies  
+#### Open a terminal  
 
-cd Frontend
-npm install
-npm run dev
+cd Frontend  
+npm install  
+npm run dev  
 
-### Install Backend Dependencies
-#### Open a terminal
+### Install Backend Dependencies  
+#### Open a terminal  
 
-cd Backend
-npm install
-npm start
+cd Backend  
+npm install  
+npm start  
 
-### Install Python Dependencies
-#### Open a terminal
+### Install Python Dependencies  
+#### Open a terminal  
 
-cd Evaluation
-pip install -r requirements.txt
-python -m uvicorn api:app --reload --port 8000  
+cd Evaluation  
+pip install -r requirements.txt  
+python -m uvicorn api:app --reload --port 8000    
 
-### Configure Environmental Variables
-#### The project uses separate environment configurations for the Backend and AI Evaluation services.
-### Backend (.env)
-CLOUD_NAME
-API_KEY
-API_SECRET
-AI_SERVICE_URL
-MONGO_URL
+### Configure Environmental Variables   
+#### The project uses separate environment configurations for the Backend and AI Evaluation services.   
+### Backend (.env)  
+CLOUD_NAME  
+API_KEY  
+API_SECRET  
+AI_SERVICE_URL  
+MONGO_URL  
 
-### Evaluation(.env)
-GOOGLE_API_KEY
+### Evaluation(.env)  
+GOOGLE_API_KEY  
+
+## Directory Overview
+
+- **Frontend/** – User interface for Instructors and Teaching Assistants built using React.
+- **Backend/** – Express.js server responsible for exam management, answer script handling, user management, and database operations.
+- **Evaluation/** – Python-based AI service built using LangChain and LangGraph for OCR, answer evaluation, explanation generation.
+
+## Future Enhancements
+📱 Mobile Application Support  
+
+Develop dedicated Android and iOS applications to enable instructors and teaching assistants to monitor and manage evaluations on the go.  
+
+🎯 Improved OCR Accuracy  
+
+Enhance text extraction capabilities to better recognize complex handwriting styles, diagrams, mathematical expressions, and scanned documents with varying quality.  
+
+🧠 Advanced AI Evaluation Models  
+
+Incorporate specialized domain-specific AI models to improve grading accuracy across different subjects and question types.
+
+📈 Performance Analytics Dashboard  
+
+Provide detailed analytics on student performance, question-wise statistics, grade distributions, and learning outcomes.
+
+🌐 Multi-Language Support  
+
+Enable answer script evaluation in multiple languages to support diverse educational environments.
+
+📝 Automated Feedback Generation  
+
+Generate personalized feedback and improvement suggestions for students based on their answers and evaluation results.
+
+🔒 Enhanced Academic Integrity Detection  
+
+Implement advanced plagiarism detection and behavioral analysis techniques to identify sophisticated cheating patterns.
+
+📊 Instructor Evaluation Insights  
+
+Provide insights into grading trends, evaluation consistency, and workload distribution among teaching assistants.
+
+☁️ Cloud-Based Scalability  
+
+Deploy the evaluation pipeline on cloud infrastructure to support large-scale examinations and simultaneous evaluations.
+
+📚 Learning Management System Integration  
+
+Integrate with popular LMS platforms such as Moodle, Google Classroom, and Canvas for seamless exam and grade management.
 
 
 
