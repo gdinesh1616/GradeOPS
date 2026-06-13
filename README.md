@@ -132,19 +132,19 @@ GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY
 
 ### Login Page
 
-![Login Page](./screenshots/login.png)
+![Login Page](./Screenshots/login.png)
 
 ### Dashboard
 
-![Evaluation Page](./screenshots/Dashboard.png)
+![Evaluation Page](./Screenshots/Dashboard.png)
 
 ### Evaluation Dashboard
 
-![Instructor Dashboard](./screenshots/Evaluationdashboard.png)
+![Instructor Dashboard](./Screenshots/Evaluationdashboard.png)
 
 ### TA Dashboard
 
-![TA Dashboard](./screenshots/TAapproval.png)
+![TA Dashboard](./Screenshots/TAapproval.png)
 
 
 ## Directory Overview
