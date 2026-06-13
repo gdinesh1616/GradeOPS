@@ -42,3 +42,51 @@ GradeOPS supports keyboard shortcuts that allow Teaching Assistants to navigate,
 
 Instructors can monitor the status of every answer script throughout the grading process, including pending reviews, approved evaluations, and overall progress.
 
+## System Architecture
+
+GradeOPS follows a client-server architecture with an AI-powered evaluation pipeline.
+
+- React provides separate dashboards for Instructors and Teaching Assistants.
+- Express.js handles API requests, authentication, exam management, and evaluation workflows.
+- MongoDB stores exam details, answer scripts, extracted text, AI-generated marks, and final approved grades.
+- The AI evaluation system is built using LangChain and LangGraph, enabling structured, multi-step answer assessment workflows.
+
+### AI Evaluation Pipeline
+
+1. Answer scripts are uploaded to the system.
+2. OCR extracts text from the uploaded scripts.
+3. LangGraph orchestrates the evaluation workflow.
+4. LangChain processes extracted answers using Large Language Models.
+5. The AI generates marks and detailed evaluation explanations for each question.
+6. Similarity analysis is performed to identify potentially copied answers.
+7. Teaching Assistants review the AI-generated marks, approve them, or overwrite them if necessary.
+8. Instructors can monitor the evaluation status and grading progress in real time.
+
+## Tech Stack
+### Frontend
+
+React.js
+JavaScript
+Tailwind CSS
+
+### Backend
+
+Node.js
+Express.js
+
+### Database
+
+MongoDB
+
+### AI & Machine Learning
+
+Python
+LangChain
+LangGraph
+TensorFlow (OCR and text extraction)
+Large Language Models (LLMs)
+
+## Installation
+
+### Clone the Repository
+git clone 
