@@ -132,7 +132,7 @@ GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY
 
 ### Login Page
 
-![Login Page](./Screenshots/login.png)
+![Login Page](./Screenshots/Login.png)
 
 ### Dashboard
 
