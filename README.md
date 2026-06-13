@@ -112,16 +112,21 @@ pip install -r requirements.txt
 python -m uvicorn api:app --reload --port 8000    
 
 ### Configure Environmental Variables   
-#### The project uses separate environment configurations for the Backend and AI Evaluation services.   
+#### The project uses separate environment configurations for the Backend, Frontend and AI Evaluation services.  
+### Frontend
+VITE_API_URL=YOUR_BACKEND_URL. Example:http://localhost:5000  
+
 ### Backend (.env)  
-CLOUD_NAME  
-API_KEY  
-API_SECRET  
-AI_SERVICE_URL  
-MONGO_URL  
+CLOUD_NAME=YOUR_CLOUDINARY_CLOUD_NAME  
+API_KEY=YOUR_CLOUDINARY_API_KEY  
+API_SECRET=YOUR_CLOUDINARY_API_SECRET  
+AI_SERVICE_URL=EXAMPLE:http://127.0.0.1:8000   
+MONGO_URL=YOUR_MONGO_URL  
+PORT=YOUR_BACKEND_PORT
+
 
 ### Evaluation(.env)  
-GOOGLE_API_KEY  
+GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY  
 
 ## Directory Overview
 
