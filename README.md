@@ -76,6 +76,10 @@ Express.js
 ### Database
 
 MongoDB  
+
+### Answer Script Upload
+
+Cloudinary
  
 ### AI & Machine Learning
 
