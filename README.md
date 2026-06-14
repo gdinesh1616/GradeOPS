@@ -109,11 +109,14 @@ npm install
 npm start  
 
 ### Install Python Dependencies  
-#### Open a terminal  
+#### Open a terminal 
 
-cd Evaluation  
-pip install -r requirements.txt  
-python -m uvicorn api:app --reload --port 8000    
+cd Evaluation
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+pip install -r requirements.txt
+python -m uvicorn api:app --reload --port 8000 
 
 ### Configure Environmental Variables   
 #### The project uses separate environment configurations for the Backend, Frontend and AI Evaluation services.  
