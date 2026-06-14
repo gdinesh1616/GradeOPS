@@ -13,6 +13,7 @@ export default function ViewstudentI(){
     const { examId } = useParams();
     const [loading,SetLoading] = useState(false);
     const [coursename, setCoursename] = useState("XXXXX");
+    const [refreshKey,setRefreshKey] = useState(0);
 
 
     useEffect(()=>{
@@ -44,8 +45,11 @@ export default function ViewstudentI(){
           for(let i=0;i<scripts.data.length;i++){
             let scriptURL = scripts.data[i].answerScriptURL
             const response1 = await api.post(`/${examId}/${scripts.data[i]._id}/evaluate`,{scriptURL});
-            const response2 = await api.get(`/api/exam/${examId}/cheatingStatus`)
+            const response2 = await api.get(`/api/exam/${examId}/cheatingStatus`);
+            setRefreshKey(prev=>prev+1);
+
           }
+          
         }catch(e){
           console.log(e);
           toast.error("Server error")
@@ -70,7 +74,7 @@ return(
         <Button className="evaluatebtn" style={{backgroundColor : loading?"red":"green"}} variant="contained" onClick={evaluateScripts}>{loading?"Evaluating":"Evaluate"}{loading?<span className="spinner"></span>:""}</Button>
       </div>
       <div className="viewStudent">
-          <StudentdetailtableI examId={examId}></StudentdetailtableI>
+          <StudentdetailtableI examId={examId} refreshKey={refreshKey} ></StudentdetailtableI>
       </div>
     </>
 )

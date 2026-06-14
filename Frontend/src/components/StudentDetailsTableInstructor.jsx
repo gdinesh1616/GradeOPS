@@ -19,7 +19,7 @@ export default function StudentdetailtableI(prop){
         
       };
       fetchData();
-    }, []);
+    }, [prop.refreshKey]);
 
     return(
       <div class="table-container">

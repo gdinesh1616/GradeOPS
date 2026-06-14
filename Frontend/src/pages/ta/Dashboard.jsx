@@ -32,18 +32,16 @@ export default function DashboardTA(){
                 <h2>Welcome Back,</h2>
                 <p>Current Exams</p>
             </div>
-            <div>{elements}
-                {!elements && 
-        <div className="no-exams-card">
+      <div>
+        {elements.length === 0?<div className="no-exams-card">
           <div className="no-exams-icon">📚</div>
           <h2>No Current Exams</h2>
           <p>
             There are currently no active exams available.
-            Once an instructor creates an exam, it will appear here.
+            You can view once the Instructor has added them
           </p>
-        </div>
-
-        }
+        </div>:elements}
+        
             </div>
             <p>GRADEOPS</p>
         </>

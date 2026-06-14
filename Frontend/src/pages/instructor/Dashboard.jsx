@@ -23,7 +23,6 @@ function Instructorexam () {
     for (let i = 0; i < courses.length; i++) {
       elements.push(<Examcard details={courses[i]} person={"Instructor"}></Examcard>);
     }
-
     const handleClick1 = async ()=>{
         navigate("/newexam");
     }
@@ -36,18 +35,18 @@ function Instructorexam () {
         <Button variant="contained" onClick={handleClick1} className='addExambtn'>+ Add Exam</Button>
       </div>
       
-      <div>{elements}
-        {!elements && 
-        <div className="no-exams-card">
+      <div>
+        {elements.length === 0?<div className="no-exams-card">
           <div className="no-exams-icon">📚</div>
           <h2>No Current Exams</h2>
           <p>
             There are currently no active exams available.
             Create an exam to evaluate.
           </p>
-        </div>
+        </div>:elements}
+        
 
-        }
+        
       </div>
       <p>GRADEOPS</p>
     </>

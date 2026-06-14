@@ -197,7 +197,7 @@ app.get("/api/:examId/studentdata",async(req,res,next)=>{
 
 // })
 
-function generateNGrams(text, n = 8) {
+function generateNGrams(text, n = 6) {
 
     const words = text
         .toLowerCase()
@@ -219,11 +219,11 @@ function generateNGrams(text, n = 8) {
 function findCommonPhrases(text1, text2) {
 
     const set1 = new Set(
-        generateNGrams(text1, 8)
+        generateNGrams(text1, 6)
     );
 
     const set2 = new Set(
-        generateNGrams(text2, 8)
+        generateNGrams(text2, 6)
     );
 
     return [...set1].filter(
@@ -234,7 +234,7 @@ function findCommonPhrases(text1, text2) {
 app.get("/api/exam/:examId/cheatingStatus",async(req,res,next)=>{
   console.log("hi");
   const examId = req.params.examId;
-  const students = await Student.find({examId: examId});
+  const students = await Student.find({status:"Evaluated By LLM",examId: examId});
 
   const suspiciousPairs = [];
 
@@ -245,7 +245,7 @@ for(let i = 0; i < students.length; i++) {
                 students[i].answerText,
                 students[j].answerText
             );
-        if(commonPhrases.length >= 2) {
+        if(commonPhrases.length >= 1) {
           students[i].suspiciousMatches.push({
               rollNo: students[j].rollNo,
               matchedPhrases: commonPhrases,
@@ -262,6 +262,7 @@ for(let i = 0; i < students.length; i++) {
         }
     }
 }
+res.status(200).send("done")
 })
 
 app.get("/api/:examId/getQuestions",async(req,res,next)=>{
